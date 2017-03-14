@@ -1,0 +1,10 @@
+<launch>
+	<!-- vim: set ft=xml noet : -->
+    <group ns="$(env HOSTNAME)">
+	    <arg name="fcu_url" default="udp://:14550@" />
+
+	    <include file="$(find mavros)/launch/apm.launch">
+		    <arg name="fcu_url" value="$(arg fcu_url)" />
+	    </include>
+    </group>
+</launch>
