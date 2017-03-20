@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. /opt/ros/kinetic/setup.sh
+. /tmp/build/setup.sh
 export ROS_MASTER_URI="http://${MASTER:-localhost}:11311"
 export HOSTNAME=$(cat /etc/hostname)
-exec roslaunch /mavros.launch
+exec roslaunch drone_adapter_mavlink solo.launch

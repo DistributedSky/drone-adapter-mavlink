@@ -6,5 +6,7 @@
 	    <include file="$(find mavros)/launch/apm.launch">
 		    <arg name="fcu_url" value="$(arg fcu_url)" />
 	    </include>
+
+		<node name="mission_loader" pkg="drone_adapter_mavlink" type="mission.py" output="screen" />
     </group>
 </launch>
