@@ -1,14 +1,14 @@
 <launch>
-	<!-- vim: set ft=xml noet : -->
+    <!-- vim: set ft=xml noet : -->
     <group ns="$(env HOSTNAME)">
-		<node name="adapter" pkg="rostopic" type="rostopic" args="pub /adapter std_msgs/String -1 -- $(env HOSTNAME)" output="screen" />
+        <node name="adapter" pkg="rostopic" type="rostopic" args="pub /adapter std_msgs/String -1 -- $(env HOSTNAME)" output="screen" />
 
-	    <arg name="fcu_url" default="udp://:14550@" />
+        <arg name="fcu_url" default="udp://:14550@" />
 
-	    <include file="$(find mavros)/launch/apm.launch">
-		    <arg name="fcu_url" value="$(arg fcu_url)" />
-	    </include>
+        <include file="$(find mavros)/launch/apm.launch">
+            <arg name="fcu_url" value="$(arg fcu_url)" />
+        </include>
 
-		<node name="mission_loader" pkg="drone_adapter_mavlink" type="mission.py" output="screen" />
+        <node name="mission_loader" pkg="drone_adapter_mavlink" type="mission.py" output="screen" />
     </group>
 </launch>

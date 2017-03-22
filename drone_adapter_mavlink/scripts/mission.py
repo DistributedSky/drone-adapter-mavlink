@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import urllib2, rospy, json, os
 from mavros_msgs.msg import Waypoint
-from mavros_msgs.srv import WaypointPush
 from route_mutex import Route
 
 def get_mission(mission_hash):

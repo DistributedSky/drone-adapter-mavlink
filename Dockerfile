@@ -2,6 +2,7 @@ FROM ros:kinetic-ros-base
 
 RUN apt-get update 
 RUN apt-get install -y sudo wpasupplicant dhcpcd5
+RUN easy_install web3
 
 ADD ./drone_adapter_mavlink /tmp/build/src/drone_adapter_mavlink
 RUN . /opt/ros/kinetic/setup.sh \
