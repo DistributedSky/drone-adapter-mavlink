@@ -11,9 +11,10 @@ class Route:
         web3.setManager(pk_manager)
         self.contract = web3.eth.contract(abi=json.loads(abi), address=os.environ['ROUTE_MUTEX'])
         self.ipfs_hash = ipfs_hash
+        self.account = os.environ['WEB3_ACCOUNT']
 
     def acquire(self):
-        return self.contract.transact().acquire(self.ipfs_hash)
+        return self.contract.transact({'from': self.account}).acquire(self.ipfs_hash)
 
     def release(self):
-        return self.contract.transact().release(self.ipfs_hash)
+        return self.contract.transact({'from': self.account}).release(self.ipfs_hash)

@@ -32,7 +32,7 @@ if __name__ == '__main__':
     mission = os.environ['MISSION_HASH']
     route = Route(mission)
     try:
-        route.acquire(mission
+        route.acquire()
         push(list(get_mission(mission)))
         rospy.info('Route {0} acquired and loaded'.format(mission))
     except:
