@@ -29,12 +29,16 @@ if __name__ == '__main__':
     rospy.wait_for_service('mavros/mission/push')
     push = rospy.ServiceProxy('mavros/mission/push', WaypointPush)
 
-    mission = os.environ['MISSION_HASH']
-    route = Route(mission)
-    try:
-        route.acquire()
-        push(list(get_mission(mission)))
-        rospy.info('Route {0} acquired and loaded'.format(mission))
-    except:
-        route.release()
-        rospy.error('Unable to load route {0}'.format(mission))
+    mission = os.environ['MISSION_HASH'].strip()
+    if len(mission) > 0:
+        rospy.info('Try to load mission {0}'.format(mission))
+        route = Route(mission)
+        try:
+            route.acquire()
+            push(list(get_mission(mission)))
+            rospy.info('Route {0} acquired and loaded'.format(mission))
+        except:
+            route.release()
+            rospy.error('Unable to load route {0}'.format(mission))
+    else:
+        rospy.warn('No mission specified, skip loading')
