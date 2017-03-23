@@ -5,13 +5,13 @@ abi = '[{"constant":false,"inputs":[{"name":"_ipfs_hash","type":"string"}],"name
 
 class Route:
     def __init__(self, ipfs_hash):
-        web3 = Web3(Web3.RPCProvider(host=os.environ['WEB3_HOST']))
-        pk_manager = Web3.PrivateKeySigningManager(web3._requestManager)
-        pk_manager.register_private_key(os.environ['WEB3_PRIV_KEY'])
-        web3.setManager(pk_manager)
-        self.contract = web3.eth.contract(abi=json.loads(abi), address=os.environ['ROUTE_MUTEX'])
         self.ipfs_hash = ipfs_hash
-        self.account = os.environ['WEB3_ACCOUNT']
+        web3 = Web3(Web3.RPCProvider(host=os.environ['WEB3_HOST']))
+        manager = Web3.PrivateKeySigningManager(web3._requestManager)
+        manager.register_private_key(os.environ['WEB3_PRIV_KEY'])
+        web3.setManager(manager)
+        self.contract = web3.eth.contract(abi=json.loads(abi), address=os.environ['ROUTE_MUTEX'])
+        self.account = manager.keys.keys()[0]
 
     def acquire(self):
         return self.contract.transact({'from': self.account}).acquire(self.ipfs_hash)
